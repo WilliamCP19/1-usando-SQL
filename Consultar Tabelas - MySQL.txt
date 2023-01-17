@@ -1,0 +1,22 @@
+SELECT au_nome AS 'Nome do escritor', au_nascionalidade AS 'País de Origem', 
+date_format(au_dataNasc , "%d/%m/%Y") AS 'Data de Nascimento',
+au_desenhista AS 'É Desenhista?', au_escritor AS 'É Escritor?', au_id AS 'Número de Identificação'
+FROM autor;
+
+SELECT qu_nome AS 'Nome da HQ', qu_lingua AS 'Idioma Original', qu_formato AS 'Formato de Lançamento',
+qu_editora AS 'Editora Responsável', qu_Escritor AS 'Escritor Responsável', qu_desenhista AS 'Desenhista Responsável',
+qu_edicoes AS 'Número de Edições', qu_id AS 'Número de Identificação'
+FROM quadrinho;
+
+SELECT ed_nome AS 'Nome da Editora', ed_fundador AS 'Nome do Fundador', ed_presidente AS 'Nome do Presidente',
+ed_sede AS 'Local da sede da Editora', ed_anoFund AS 'Ano de Fundação', ed_website AS 'Site da Editora',
+ed_situacao AS 'Situação da Editora', ed_id AS 'Número de Identificação'
+FROM editora;
+
+SELECT pt_nome AS 'Nome da HQ', pt_editora AS 'Editora Publicadora', pt_anoLanc AS 'Ano de Lançamento da HQ',
+pt_cargo AS 'Autor Responsável', pt_id AS 'Número de Identificação'
+FROM princtrabalhos ORDER BY pt_id;
+
+SELECT pr_nome AS 'Nome do Prêmio', pr_anoRec AS 'Ano de Recebimento', pr_organizacao AS 'Organização Responsável',
+pr_anoCri AS 'Ano de Criação do Prêmio', pr_id AS 'Número de Identificação' 
+FROM premio ORDER BY pr_id;

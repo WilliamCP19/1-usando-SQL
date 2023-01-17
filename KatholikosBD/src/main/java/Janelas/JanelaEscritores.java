@@ -1,0 +1,513 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package Janelas;
+
+import DAO.EscritorDAO;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import javax.swing.table.DefaultTableModel;
+
+
+/**
+ *
+ * @author willi
+ */
+public class JanelaEscritores extends javax.swing.JFrame{
+    
+    private EscritorDAO escritor = EscritorDAO.getDaoEscritor();
+    private static JanelaEscritores janelaEscritor;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    /**
+     * Creates new form Janela1
+     */
+    
+    public JanelaEscritores() {
+        initComponents();
+        cxNome.requestFocus();
+        
+    }
+    public static JanelaEscritores getJanelaCadEscritor (boolean isDesenhista) {
+        if (janelaEscritor == null) {
+            janelaEscritor = new JanelaEscritores();
+        }
+        return janelaEscritor;
+    }
+
+    public final boolean preencheCargo () {
+        try {
+            escritor.getEscritor().setNome(cxNome.getText());
+            escritor.getEscritor().setNacionalidade(cxNacionalidade.getText());
+            escritor.getEscritor().setDiaNasc(Integer.parseInt(cxDiaNasc.getText()));
+            escritor.getEscritor().setMesNasc(Integer.parseInt(cxMesNasc.getText()));
+            escritor.getEscritor().setAnoNasc(Integer.parseInt(cxAnoNasc.getText()));
+            escritor.getEscritor().setDesenhista(csDesenhista.isSelected());
+            escritor.getEscritor().setEscritor(csEscritor.isSelected());
+            return true;
+        } catch (NumberFormatException num) {
+            escritor.getConBD().informativo("Os campos de 'dia, 'mes' e 'ano' devem ser número");
+            return false;
+        }
+    }
+    
+    public void setCampos (int id) {
+        try {
+            escritor.getConBD().setConjuntos(escritor.getConBD().getConexao().createStatement(1005, 1008).executeQuery("SELECT * FROM autor WHERE au_id = "+id));
+            if (escritor.getConBD().getConjuntos().first()) {
+                cxNome.setText(escritor.getConBD().getConjuntos().getString("au_nome"));
+                cxNacionalidade.setText(escritor.getConBD().getConjuntos().getString("au_nascionalidade"));
+                LocalDate data = escritor.getConBD().getConjuntos().getDate("au_dataNasc").toLocalDate();
+                cxDiaNasc.setText(String.valueOf(data.getDayOfMonth() < 10 ? "0"+data.getDayOfMonth() : data.getDayOfMonth()));
+                cxMesNasc.setText(String.valueOf(data.getMonthValue() < 10 ? "0"+data.getMonthValue() : data.getMonthValue()));
+                cxAnoNasc.setText(String.valueOf(data.getYear()));
+                csDesenhista.setSelected(escritor.getConBD().getConjuntos().getString("au_desenhista").equals("SIM"));
+                csEscritor.setSelected(escritor.getConBD().getConjuntos().getString("au_escritor").equals("SIM"));
+                escritor.getEscritor().setId(escritor.getConBD().getConjuntos().getInt("au_id"));
+                escritor.setBuilder(); tabelasVazias();
+                escritor.getConBD().getConjuntos().close();
+            }
+            escritor.buscarTabelaBD(id, (DefaultTableModel) tblPrincTrabalhos.getModel());
+            escritor.buscarTabelaBD(id, (DefaultTableModel) tblPremios.getModel());
+        } catch (SQLException ex) {
+            escritor.getConBD().errosSQL("Não foi possível alterar os campos com as informações do banco de dados", ex);
+        }
+    }
+    
+    public void camposVazios () {
+        cxNome.setText("");
+        cxNacionalidade.setText("");
+        cxAnoNasc.setText("");
+        cxMesNasc.setText("");
+        cxDiaNasc.setText("");
+        csDesenhista.setSelected(false);
+        csEscritor.setSelected(false);
+    }
+    
+    public void tabelasVazias () {
+        DefaultTableModel tabela = (DefaultTableModel) tblPrincTrabalhos.getModel();
+        
+        for (int i=0;i < tabela.getRowCount();) {
+            tabela.removeRow(i);
+        }
+        
+        tabela = (DefaultTableModel) tblPremios.getModel();
+        for (int i=0;i < tabela.getRowCount();) {
+            tabela.removeRow(i);
+        }
+    }
+    
+    public boolean isVazio () {
+        return (cxNome.getText().equals("") && cxNacionalidade.getText().equals("") && cxAnoNasc.getText().equals("") && cxMesNasc.getText().equals("") && 
+        cxDiaNasc.getText().equals(""));
+    }
+    
+    public void botoesInativos () {
+        btAtuTabPre.enableInputMethods(false);
+        btExcTabPrincTrab.enableInputMethods(false);
+        btExcTabPre.enableInputMethods(false);
+    }
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblPremios = new javax.swing.JTable();
+        cxNacionalidade = new javax.swing.JTextField();
+        cxDiaNasc = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPrincTrabalhos = new javax.swing.JTable();
+        cxMesNasc = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        cxAnoNasc = new javax.swing.JTextField();
+        csDesenhista = new javax.swing.JCheckBox();
+        lbTitulo = new javax.swing.JLabel();
+        btPremios = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        btPrincTrabalhos = new javax.swing.JButton();
+        cxNome = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        btSalvar = new javax.swing.JButton();
+        btAtuTabPrincTrab = new javax.swing.JButton();
+        btAtuTabPre = new javax.swing.JButton();
+        btExcTabPrincTrab = new javax.swing.JButton();
+        btExcTabPre = new javax.swing.JButton();
+        csEscritor = new javax.swing.JCheckBox();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel5.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabel5.setText("Prêmios");
+
+        tblPremios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome do Prêmio", "Ano do Recebimento", "Organização Responsável", "Ano de Criação"
+            }
+        ));
+        jScrollPane2.setViewportView(tblPremios);
+
+        jLabel3.setText("Data de Nascimento:");
+
+        tblPrincTrabalhos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome da HQ", "Editora", "Primeiro Lançamento", "Escritor"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Long.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblPrincTrabalhos);
+
+        jLabel4.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabel4.setText("Principais Trabalhos");
+
+        csDesenhista.setText("É Desenhista?");
+
+        lbTitulo.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        lbTitulo.setText("Informações dos autores");
+
+        btPremios.setText("Adicionar Prêmios");
+        btPremios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPremiosActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Nome:");
+
+        btPrincTrabalhos.setText("Adicionar Principais Trabalhos");
+        btPrincTrabalhos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPrincTrabalhosActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Nacionalidade:");
+
+        btSalvar.setText("Salvar ");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+
+        btAtuTabPrincTrab.setText("Atualizar Trabalhos");
+        btAtuTabPrincTrab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAtuTabPrincTrabActionPerformed(evt);
+            }
+        });
+
+        btAtuTabPre.setText("Atualizar Prêmios");
+        btAtuTabPre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAtuTabPreActionPerformed(evt);
+            }
+        });
+
+        btExcTabPrincTrab.setText("Excluir Trabalho");
+        btExcTabPrincTrab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcTabPrincTrabActionPerformed(evt);
+            }
+        });
+
+        btExcTabPre.setText("Excluir Prêmio");
+        btExcTabPre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcTabPreActionPerformed(evt);
+            }
+        });
+
+        csEscritor.setText("É Escritor?");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cxDiaNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cxMesNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cxAnoNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(csEscritor, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(cxNome, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cxNacionalidade)))
+                                .addGap(10, 10, 10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btPremios)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btPrincTrabalhos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(165, 165, 165)
+                        .addComponent(btSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(117, 117, 117))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btAtuTabPrincTrab)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(csDesenhista)
+                                .addGap(18, 18, 18)
+                                .addComponent(btExcTabPrincTrab, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btExcTabPre, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btAtuTabPre))
+                        .addGap(23, 23, 23))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbTitulo)
+                        .addGap(54, 54, 54)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cxNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(cxNacionalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(cxDiaNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cxMesNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cxAnoNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btExcTabPrincTrab)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btAtuTabPrincTrab)
+                            .addComponent(btAtuTabPre))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btExcTabPre))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(csEscritor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(csDesenhista))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel5)))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btPrincTrabalhos)
+                            .addComponent(btPremios))
+                        .addGap(18, 18, 18)
+                        .addComponent(btSalvar))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+            switch (escritor.getConBD().getValidar()) {
+            case 1:
+                if (preencheCargo()) {
+                    if (escritor.inserir()) {
+                        if (tblPrincTrabalhos.getRowCount() > 0) { 
+                            escritor.inserirTabelaBD(tblPrincTrabalhos.getModel());
+                        } 
+                        if (tblPremios.getRowCount() > 0) { escritor.setBuilder();
+                            escritor.inserirTabelaBD(tblPremios.getModel());
+                        }
+                        escritor.getConBD().mensagens(escritor.getConBD().getValidar());
+                    }
+                }
+                break;
+            case 2:
+                if (preencheCargo()) {
+                    if (escritor.editar(id)) { 
+                        if (tblPrincTrabalhos.getRowCount() > 0) { escritor.excluirTabelaBD(escritor.getEscritor().getId(), 1);
+                            escritor.inserirTabelaBD(tblPrincTrabalhos.getModel());
+                        } 
+                        if (tblPremios.getRowCount() > 0) { escritor.excluirTabelaBD(escritor.getEscritor().getId(), 2);
+                            escritor.inserirTabelaBD(tblPremios.getModel());
+                        } escritor.setBuilder();
+                        escritor.getConBD().mensagens(escritor.getConBD().getValidar()); 
+                    }
+                }
+                break;
+            case 3:
+                btSalvar.enableInputMethods(false);
+                break;
+            default:
+                break;
+        }
+            camposVazios(); this.dispose();
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btPremiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPremiosActionPerformed
+         switch (escritor.getConBD().getValidar()) {
+            case 3:
+                btPrincTrabalhos.enableInputMethods(false); break;
+            default:
+                if (!isVazio()) {
+                    escritor.preencheTabela(tblPremios, 2);
+                } else {
+                    escritor.getConBD().informativo("Deve-se preencher o dados do escritor!");
+                }
+        }
+    }//GEN-LAST:event_btPremiosActionPerformed
+
+    private void btPrincTrabalhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPrincTrabalhosActionPerformed
+        switch (escritor.getConBD().getValidar()) {
+            case 3:
+                btPrincTrabalhos.enableInputMethods(false); break;
+            default:
+                if (!isVazio()) {
+                    escritor.preencheTabela(tblPrincTrabalhos, 1);
+                } else {
+                    escritor.getConBD().informativo("Deve-se preencher o dados do escritor!");
+                    cxNome.requestFocus();
+                }
+        }
+    }//GEN-LAST:event_btPrincTrabalhosActionPerformed
+
+    private void btAtuTabPrincTrabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtuTabPrincTrabActionPerformed
+        switch (escritor.getConBD().getValidar()) {
+            case 3:
+                btAtuTabPrincTrab.enableInputMethods(false); break;
+            default:
+                escritor.atualizarTabelas(tblPrincTrabalhos);
+        }
+    }//GEN-LAST:event_btAtuTabPrincTrabActionPerformed
+
+    private void btAtuTabPreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtuTabPreActionPerformed
+        switch (escritor.getConBD().getValidar()) {
+            case 3:
+                btAtuTabPre.enableInputMethods(false); break;
+            default:
+                escritor.atualizarTabelas(tblPremios);
+        }
+    }//GEN-LAST:event_btAtuTabPreActionPerformed
+
+    private void btExcTabPrincTrabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcTabPrincTrabActionPerformed
+        switch (escritor.getConBD().getValidar()) {
+            case 3:
+                btExcTabPrincTrab.enableInputMethods(false); break;
+            default:
+                escritor.excluirLinhaTab(tblPrincTrabalhos);
+        }
+    }//GEN-LAST:event_btExcTabPrincTrabActionPerformed
+
+    private void btExcTabPreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcTabPreActionPerformed
+        switch (escritor.getConBD().getValidar()) {
+            case 3:
+                btExcTabPre.enableInputMethods(false); break;
+            default:
+                escritor.excluirLinhaTab(tblPremios);
+        }        
+    }//GEN-LAST:event_btExcTabPreActionPerformed
+
+    
+    /**
+     * @param args the command line arguments
+     
+    public static void main(String args[]) {
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new JanelaEscritores().setVisible(true);
+            }
+        });
+    }*/
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAtuTabPre;
+    private javax.swing.JButton btAtuTabPrincTrab;
+    private javax.swing.JButton btExcTabPre;
+    private javax.swing.JButton btExcTabPrincTrab;
+    private javax.swing.JButton btPremios;
+    private javax.swing.JButton btPrincTrabalhos;
+    private javax.swing.JButton btSalvar;
+    private javax.swing.JCheckBox csDesenhista;
+    private javax.swing.JCheckBox csEscritor;
+    private javax.swing.JTextField cxAnoNasc;
+    private javax.swing.JTextField cxDiaNasc;
+    private javax.swing.JTextField cxMesNasc;
+    private javax.swing.JTextField cxNacionalidade;
+    private javax.swing.JTextField cxNome;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbTitulo;
+    private javax.swing.JTable tblPremios;
+    private javax.swing.JTable tblPrincTrabalhos;
+    // End of variables declaration//GEN-END:variables
+}

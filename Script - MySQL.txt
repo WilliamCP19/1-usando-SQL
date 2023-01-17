@@ -1,0 +1,59 @@
+CREATE DATABASE IF NOT EXISTS `Loja` DEFAULT CHARACTER SET utf8 ;
+USE `Loja` ;
+
+CREATE TABLE IF NOT EXISTS `Loja`.`Autor` (
+  `au_nome` VARCHAR (30) NULL,
+  `au_nascionalidade` VARCHAR(20) NOT NULL,
+  `au_dataNasc` DATE NOT NULL,
+  `au_id` INT NOT NULL,
+  `au_desenhista` VARCHAR(3) NOT NULL,
+  `au_escritor` VARCHAR(3) NOT NULL,
+  PRIMARY KEY (`au_id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `Loja`.`Editora` (
+  `ed_nome` VARCHAR(30) NOT NULL,
+  `ed_fundador` VARCHAR(30) NOT NULL,
+  `ed_presidente` VARCHAR(30) NOT NULL,
+  `ed_sede` VARCHAR(30) NOT NULL,
+  `ed_anoFund` INT NOT NULL,
+  `ed_id` INT NOT NULL,
+  `ed_website` VARCHAR(45) NULL,
+  `ed_situacao` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`ed_id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `Loja`.`Quadrinho` (
+  `qu_nome` VARCHAR(30) NOT NULL,
+  `qu_lingua` VARCHAR(45) NOT NULL,
+  `qu_formato` VARCHAR(45) NOT NULL,
+  `qu_publi` VARCHAR (30) NOT NULL,
+  `qu_editora` VARCHAR(20) NOT NULL,
+  `qu_escritor` VARCHAR(30) NOT NULL,
+  `qu_desenhista` VARCHAR(30) NOT NULL,
+  `qu_edicoes` INT NOT NULL,
+  `qu_id` INT NOT NULL,
+  PRIMARY KEY (`qu_id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `Loja`.`PrincTrabalhos` (
+  `pt_nome` VARCHAR(30) NOT NULL,
+  `pt_editora` VARCHAR(20) NOT NULL,
+  `pt_anoLanc` VARCHAR(4) NOT NULL,
+  `pt_cargo` VARCHAR(30) NOT NULL,
+  `pt_id` INT NOT NULL,
+  CONSTRAINT `PrincTrabalhos->Escritor`
+    FOREIGN KEY (`pt_id`)
+    REFERENCES `Loja`.`Autor` (`au_id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `Loja`.`Premio` (
+  `pr_nome` VARCHAR(30) NOT NULL,
+  `pr_anoRec` VARCHAR(4) NOT NULL,
+  `pr_organizacao` VARCHAR(40) NULL,
+  `pr_anoCri` VARCHAR(4) NOT NULL,
+  `pr_id` INT NOT NULL,
+  CONSTRAINT `Premio->Escritor`
+  FOREIGN KEY (`pr_id`)
+  REFERENCES `Loja`.`Autor` (`au_id`))
+ENGINE = InnoDB;
