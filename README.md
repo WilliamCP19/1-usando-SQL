@@ -28,4 +28,4 @@ Há 4 registros:
 4º
 Ao excluir o registro 2, o registro 3 passa a ser o 2º e o 4 passa a ser o 3º. Assim, o 4 não existe mais..
 
-                                                                        William da Cruz Pires, aluno de Engenharia de Software - UTFPR.
+                                              William da Cruz Pires, aluno de Engenharia de Software - UTFPR.
