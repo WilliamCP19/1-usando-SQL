@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl">
+  <name>Connection MySQL</name>
+  <classpath>C:\Users\willi\OneDrive\Área de Trabalho\mysql-connector-j-8.0.31\mysql-connector-j-8.0.31.jar</classpath>
+  <driver>com.mysql.jdbc.Driver</driver>
+  <username>root</username>
+  <password>#Mysql2313707</password>
+  <url>jdbc:mysql://localhost:3306/loja</url>
+  <database></database>
+  <savePassword>true</savePassword>
+  <serverAddress></serverAddress>
+</jdbcDataAdapter>

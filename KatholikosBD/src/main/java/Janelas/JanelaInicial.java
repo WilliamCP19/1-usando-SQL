@@ -5,6 +5,7 @@
 package Janelas;
 import DAO.ControllerArquivo;
 import DAO.DAO;
+import Relatorios.ControleRelatorios;
 import java.awt.Color;
 import java.sql.SQLException;
 import javax.swing.JFrame;
@@ -14,9 +15,10 @@ import javax.swing.JFrame;
  */
 public final class JanelaInicial extends javax.swing.JFrame {
     
+    private final ControleRelatorios forRelatorios = ControleRelatorios.getcRelatorios();
     private static JanelaInicial janelaInicial = null;
-    public final DAO bancoDados = DAO.getDao();
-    public final ControllerArquivo arqBanco = new ControllerArquivo();
+    private final DAO bancoDados = DAO.getDao();
+    private final ControllerArquivo arqBanco = new ControllerArquivo();
 
     /**
      * Creates new form JanelaInicial
@@ -122,6 +124,12 @@ public final class JanelaInicial extends javax.swing.JFrame {
         lbImagem3 = new javax.swing.JLabel();
         btConectaBD = new javax.swing.JToggleButton();
         jLabel4 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mbRelatorios = new javax.swing.JMenu();
+        rQuadrinhos = new javax.swing.JMenuItem();
+        rEscritores = new javax.swing.JMenuItem();
+        rEditoras = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -168,6 +176,49 @@ public final class JanelaInicial extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Situação do Banco de Dados:");
+
+        mbRelatorios.setText("Gerar Relatórios");
+        mbRelatorios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mbRelatoriosMouseClicked(evt);
+            }
+        });
+
+        rQuadrinhos.setText("Relatório - Quadrinhos");
+        rQuadrinhos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rQuadrinhosActionPerformed(evt);
+            }
+        });
+        mbRelatorios.add(rQuadrinhos);
+
+        rEscritores.setText("Relatório - Escritores e Desenhistas");
+        rEscritores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rEscritoresActionPerformed(evt);
+            }
+        });
+        mbRelatorios.add(rEscritores);
+
+        rEditoras.setText("Relatório - Editoras");
+        rEditoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rEditorasActionPerformed(evt);
+            }
+        });
+        mbRelatorios.add(rEditoras);
+
+        jMenuItem1.setText("Relatório - Editoras a partir de Data de Fundação ");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mbRelatorios.add(jMenuItem1);
+
+        jMenuBar1.add(mbRelatorios);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -233,7 +284,7 @@ public final class JanelaInicial extends javax.swing.JFrame {
                     .addComponent(btQuadrinhos)
                     .addComponent(btEditora)
                     .addComponent(btEscritor, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -260,6 +311,28 @@ public final class JanelaInicial extends javax.swing.JFrame {
             desconectarBD ();
         }
     }//GEN-LAST:event_btConectaBDActionPerformed
+
+    private void mbRelatoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mbRelatoriosMouseClicked
+        if (bancoDados.verificaConexao()) {
+            mbRelatorios.setSelected(false);
+        }
+    }//GEN-LAST:event_mbRelatoriosMouseClicked
+
+    private void rQuadrinhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rQuadrinhosActionPerformed
+        forRelatorios.Relatorios(forRelatorios.file_relatorio_quadrinho, forRelatorios.relatorio_quadrinho_pdf, null);
+    }//GEN-LAST:event_rQuadrinhosActionPerformed
+
+    private void rEscritoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rEscritoresActionPerformed
+        forRelatorios.Relatorios(forRelatorios.file_relatorio_escritorDesenhista, forRelatorios.relatorio_escritorDesenhista_pdf, null);
+    }//GEN-LAST:event_rEscritoresActionPerformed
+
+    private void rEditorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rEditorasActionPerformed
+        forRelatorios.Relatorios(forRelatorios.file_relatorio_editora, forRelatorios.relatorio_editora_pdf, null);
+    }//GEN-LAST:event_rEditorasActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        forRelatorios.Relatorios(forRelatorios.file_parametro_editora, forRelatorios.relatorio_parametro_editora_pdf, forRelatorios.criaParametros());
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,8 +381,14 @@ public final class JanelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel lbImagem;
     private javax.swing.JLabel lbImagem2;
     private javax.swing.JLabel lbImagem3;
+    private javax.swing.JMenu mbRelatorios;
+    private javax.swing.JMenuItem rEditoras;
+    private javax.swing.JMenuItem rEscritores;
+    private javax.swing.JMenuItem rQuadrinhos;
     // End of variables declaration//GEN-END:variables
 }

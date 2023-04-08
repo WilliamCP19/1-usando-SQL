@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Editora por fundação" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a5c9b49-9dc5-422a-ac69-e92cf61ef530">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Connection MySQL.jrdax"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="ForFundação" class="java.lang.Integer">
+		<parameterDescription><![CDATA[Parâmetro para selecionar editoras a partir do seu ano de fundação]]></parameterDescription>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT ed_nome,
+	ed_fundador,
+	ed_presidente,
+	ed_sede,
+	`ed_anoFund`,
+	ed_website,
+	ed_situacao,
+	ed_id
+FROM editora
+WHERE `ed_anoFund` >  $P{ForFundação}]]>
+	</queryString>
+	<field name="ed_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ed_nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="ed_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="editora"/>
+	</field>
+	<field name="ed_fundador" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ed_fundador"/>
+		<property name="com.jaspersoft.studio.field.label" value="ed_fundador"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="editora"/>
+	</field>
+	<field name="ed_presidente" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ed_presidente"/>
+		<property name="com.jaspersoft.studio.field.label" value="ed_presidente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="editora"/>
+	</field>
+	<field name="ed_sede" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ed_sede"/>
+		<property name="com.jaspersoft.studio.field.label" value="ed_sede"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="editora"/>
+	</field>
+	<field name="ed_anoFund" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ed_anoFund"/>
+		<property name="com.jaspersoft.studio.field.label" value="ed_anoFund"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="editora"/>
+	</field>
+	<field name="ed_website" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ed_website"/>
+		<property name="com.jaspersoft.studio.field.label" value="ed_website"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="editora"/>
+	</field>
+	<field name="ed_situacao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ed_situacao"/>
+		<property name="com.jaspersoft.studio.field.label" value="ed_situacao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="editora"/>
+	</field>
+	<field name="ed_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ed_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="ed_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="editora"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="66" forecolor="#F5F2D0" backcolor="#F5F2D0" uuid="d8d9e644-3a32-491d-97cb-a277aff17133"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="520" height="66" forecolor="#708090" backcolor="#708090" uuid="27d8f6ee-f0a9-44f6-a160-1763c3b00f30"/>
+					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="34" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Editoras a partir da data da fundação]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="70" width="802" height="32" forecolor="#F0CCCC" backcolor="#F0C8C7" uuid="b0c895f6-6dbd-477d-9858-9ad66af087e1"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="650" y="6" width="144" height="20" forecolor="#FFFFFF" uuid="a33fce3b-20c1-4696-873a-fe134d1e7d88"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="2" y="1" width="691" height="30" forecolor="#FFFFFF" uuid="ce601222-ff68-4e03-84e6-49746421c953"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<text><![CDATA[Relatório que seleciona editoras fundadas a partir de determinada data de fundação]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="99" height="18" forecolor="#000000" uuid="483d2d3d-9f58-428d-b5bb-c187deb517f9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca9dadd6-795c-4da3-8964-404483cb4d3d"/>
+				</reportElement>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="99" y="0" width="99" height="18" forecolor="#000000" uuid="5042765c-e462-459b-9a95-835af8779229">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db5ab96f-c820-4572-b35f-c26a492e1cc6"/>
+				</reportElement>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fundador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="198" y="0" width="99" height="18" forecolor="#000000" uuid="14f90e7a-78f9-4ee2-bf0d-0287c33d62df">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48f263c7-74a1-4c69-829e-e59059e0a0e4"/>
+				</reportElement>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Presidente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="297" y="0" width="99" height="18" forecolor="#000000" uuid="9f76f83e-fe1f-4715-b026-4a24a999da6f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9b13ade7-9997-4f5d-8d69-b07e0e3e2701"/>
+				</reportElement>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Local Sede]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="396" y="0" width="99" height="18" forecolor="#000000" uuid="ac92b181-41b9-4166-ac1b-028a1c5231bd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b8066524-1e65-424a-8aca-ab685cffe696"/>
+				</reportElement>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ano Fund.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="495" y="0" width="99" height="18" forecolor="#000000" uuid="052c36ee-6012-4c7f-aad3-7fc99da65c91">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="38654e3b-52d1-4d6e-99df-517c6c9c9b19"/>
+				</reportElement>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Website]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="610" y="0" width="100" height="18" forecolor="#000000" uuid="86990fc2-a841-4314-8a86-ea43f94c02cc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c5b8785e-ec9b-4654-b194-a91138cac374"/>
+				</reportElement>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Situação (CNPJ)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="710" y="0" width="82" height="18" forecolor="#000000" uuid="59164f78-5bf5-4a4d-b3e4-23f4b14207b0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9650997b-3233-48c8-a89c-8d497c66ae69"/>
+				</reportElement>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Identificador]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="797" height="18" uuid="34a2ae4b-4055-476b-8676-d499f6af510b"/>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="99" height="18" uuid="4ac185fd-6134-430b-b9bb-7b9409d8bba3">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca9dadd6-795c-4da3-8964-404483cb4d3d"/>
+					</reportElement>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ed_nome}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="99" y="0" width="99" height="18" uuid="189f0cf8-eb22-49b6-925a-42aff24a2566">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db5ab96f-c820-4572-b35f-c26a492e1cc6"/>
+					</reportElement>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ed_fundador}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="198" y="0" width="99" height="18" uuid="33de1d21-66a5-419f-8c35-68c2985dc463">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48f263c7-74a1-4c69-829e-e59059e0a0e4"/>
+					</reportElement>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ed_presidente}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="297" y="0" width="99" height="18" uuid="056d7633-8724-4f6e-b606-0cd2cd24b4a0">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9b13ade7-9997-4f5d-8d69-b07e0e3e2701"/>
+					</reportElement>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ed_sede}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="396" y="0" width="99" height="18" uuid="a41fc402-f285-41ca-a423-752156e2356b">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b8066524-1e65-424a-8aca-ab685cffe696"/>
+					</reportElement>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ed_anoFund}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="495" y="0" width="115" height="18" uuid="a4ecf88b-5c1a-4aaa-9ddc-3fa37f4d8984">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="38654e3b-52d1-4d6e-99df-517c6c9c9b19"/>
+					</reportElement>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ed_website}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="610" y="0" width="100" height="18" uuid="7eeec31e-5607-459b-bf5d-bb0de09bcf5e">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c5b8785e-ec9b-4654-b194-a91138cac374"/>
+					</reportElement>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ed_situacao}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="710" y="0" width="82" height="18" uuid="56e55512-c75f-4585-82b2-22e38d534e71">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9650997b-3233-48c8-a89c-8d497c66ae69"/>
+					</reportElement>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ed_id}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="501ac6c4-e9d4-43cb-ba6b-7f2f44394cf3"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="25" forecolor="#D0B48E" backcolor="#FABCBB" uuid="ffb10ec8-0371-4545-8eaa-96d62ad3cec0"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="757" y="3" width="40" height="20" forecolor="#FFFFFF" uuid="b5521ea6-5f36-4864-856f-58d0bcd011f2"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="677" y="3" width="80" height="20" forecolor="#FFFFFF" uuid="e625ea3c-1741-4cfe-81cf-fbbdd00162c8"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="3" width="197" height="20" forecolor="#FFFFFF" uuid="0c9f7e91-d3f5-47f9-82b7-0b2b3a43a5d6"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,25 @@
+Envie a pasta do projeto pela necessidade do arquivo 'pom.xml' do meu projeto; o arquivo possui as dependências dos SGBD's
+
+O trabalho foi realizado totalmente utilizando o SGBD - MySQL mas, como o senhor utiliza o PostgreSQL resolvi criar um script que funcione também neste SGBD.
+Mas já aviso, se houver qualquer erro referente ao Banco, utilize por favor o MySQL.
+
+O projeto foi criado usando o MAVEN, dito isto, o driver do SGBD não se faz necessário, somente deve-se importar a dependência referente ao SGBD.
+O software já contém as dependencia do MySQL e PostgreSQL, se desejar inserir mais algum importe a dependência no projeto.
+
+Utiliza-se o arquivo '.properties' porém, resolvi criar uma janela para criar este arquivo! Ao rodar o programa, o banco estará desconectado e, 
+ao clicar no botão (que é um JToggleButton) será realizado uma busca para encontrar o arquivo '.properties' (que não existe) então,
+abrirá a janela para criar este arquivo. Para alterar as informações depois é necessário somente abrir o arquivo e alterar direto lá.
+
+Não foi criado uma aba para "listar todos os 'escritores, desenhistas, editoras ou quadrinhos'" pode ser feito direto no banco após cadastramento no programa.
+Os comandos estão em um dos arquivos '.txt'. O buscar mostra o registro mas um por um.
+
+Os índices são atualizados após a exclusão, por exemplo:
+
+Há 4 registros: 
+1º
+2º
+3º
+4º
+Ao excluir o registro 2, o registro 3 passa a ser o 2º e o 4 passa a ser o 3º. Assim, o 4 não existe mais.
+
+O Data Adapter deve ser criado manualmente.
