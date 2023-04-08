@@ -29,7 +29,7 @@ public class ControleRelatorios {
     public static ControleRelatorios cRelatorios;
     private DAO conexao;
 
-    private static final String pasta_relatorios = System.getProperty("user.dir") + "/src/main/java/Relatorios";
+    private static final String pasta_relatorios = System.getProperty("user.dir") + "/KatholikosBD/src/main/java/Relatorios";
 
     public final File file_parametro_editora = new File (pasta_relatorios, "EditoraForFundação.jasper");
     public final File relatorio_parametro_editora_pdf = new File(pasta_relatorios, "relatorio_parametro_editoras.pdf");

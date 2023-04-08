@@ -175,7 +175,7 @@ public class DAO {
     } 
     
     public final void alteraImagens (String diretorio, JLabel quadro) {
-        ImageIcon image = new ImageIcon ("src/main/java/Dados/Imagens/"+diretorio);
+        ImageIcon image = new ImageIcon (System.getProperty("user.dir")+"/KatholikosBD/src/main/java/Dados/Imagens/"+diretorio);
         image.setImage(image.getImage().getScaledInstance(quadro.getWidth(), quadro.getHeight(), 1));
         quadro.setIcon(image);
     }
