@@ -155,6 +155,8 @@ public final class JanelaInicial extends javax.swing.JFrame {
             }
         });
 
+        btEditora.setBackground(new java.awt.Color(0, 153, 102));
+        btEditora.setForeground(new java.awt.Color(51, 204, 0));
         btEditora.setText("Editora");
         btEditora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
