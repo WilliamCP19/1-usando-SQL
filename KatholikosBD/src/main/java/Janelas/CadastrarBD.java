@@ -42,7 +42,7 @@ public class CadastrarBD extends javax.swing.JFrame {
             }
             url.append(":");
             cxEndereco.getText().toLowerCase();
-            if (cxEndereco.equals("localhost")) {
+            if (cxEndereco.getText().equals("localhost")) {
                 url.append("//");
             }
               url.append(cxEndereco.getText()); url.append(":");
