@@ -21,8 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: Produção
-      url: 'https://docs.github.com/pt/actions'
+      url: 'http://curiosamentegigante.orgfree.com/SONY.html'
     needs: development
     steps:
-      - name: Realiza uma Action no ambiente-Produção. Acessa a Documentação do GitHub Actions
+      - name: Realiza uma Action no ambiente-Produção. Acessa um site criado por mim, com o intuito de aprender!
         run: echo Estou no ambiente de Produção!!!
