@@ -1,0 +1,30 @@
+name: Automatização de Testes
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: "0 9,15,21 5,6,15,16 1,4,7,10,12 *"
+
+jobs:
+  testes-basicos:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Checkout Project
+
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: 3306
+          container port: 3306
+          character set server: 'utf8' 
+          collation server: 'utf8_general_ci'
+          mysql version: '8.0'
+          mysql database: 'lojas'
+          mysql root password: '#Mysql2313707'
+          mysql user: 'root'
+          mysql password: '#Mysql2313707'
+          name:  MySQL enviroment
